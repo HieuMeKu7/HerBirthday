@@ -11,156 +11,214 @@ function App() {
   const [tiemCuonLenNickname, setTiemCuonLenNickname] = useState('Tiem Cuon Len');
   const [hueManAvatarUrl, setHueManAvatarUrl] = useState('/images/HueMan.jpg');
   const [tiemCuonLenAvatarUrl, setTiemCuonLenAvatarUrl] = useState('/images/shop.jpg');
+  const [userAvatarUrl, setUserAvatarUrl] = useState('/images/Hieu.jpg');
   const [messages, setMessages] = useState([]);
-  const [inputValue, setInputValue] = useState('');
   const [currentScriptIndex, setCurrentScriptIndex] = useState(0);
   const [isPersonaTyping, setIsPersonaTyping] = useState(false);
   const [waitingForUserInput, setWaitingForUserInput] = useState(false);
   const [seenMarkerMessageId, setSeenMarkerMessageId] = useState(null);
 
   const currentTheme = activePersona === 'hueMan' ? hueManTheme : tiemCuonLenTheme;
-  const currentNickname = activePersona === 'hueMan' ? hueManNickname : tiemCuonLenNickname;
-  const otherNickname = activePersona === 'hueMan' ? tiemCuonLenNickname : hueManNickname;
+  const currentTargetNickname = activePersona === 'hueMan' ? hueManNickname : tiemCuonLenNickname;
+  const otherTargetNickname = activePersona === 'hueMan' ? tiemCuonLenNickname : hueManNickname;
 
   const addMessageToChat = useCallback((message) => {
     setMessages((prevMessages) => [...prevMessages, message]);
-    if (message.sender === 'persona') {
-      setSeenMarkerMessageId(null);
+    if (message.sender === 'persona') { 
+      setSeenMarkerMessageId(null); // Re-evaluate if Hieu's messages should trigger this
     }
   }, []);
 
   const processNextScriptMessage = useCallback(() => {
-    if (currentScriptIndex < dialogueScript.length) {
-      const scriptEntry = dialogueScript[currentScriptIndex];
+    if (currentScriptIndex >= dialogueScript.length) {
+      setIsPersonaTyping(false);
+      return;
+    }
+    const scriptEntry = dialogueScript[currentScriptIndex];
 
-      if (scriptEntry.type === 'action') {
-        setIsPersonaTyping(false);
-        if (scriptEntry.action_type === 'change_nickname') {
-          setTimeout(() => {
-            if (scriptEntry.target_persona_key === 'hueMan') {
-              setHueManNickname(scriptEntry.new_nickname);
-            } else if (scriptEntry.target_persona_key === 'tiemCuonLen') {
-              setTiemCuonLenNickname(scriptEntry.new_nickname);
-            }
-            setCurrentScriptIndex(prevIndex => prevIndex + 1);
-          }, scriptEntry.delay || 0);
-        } else if (scriptEntry.action_type === 'change_avatar') {
-          setTimeout(() => {
-            if (scriptEntry.target_persona_key === 'hueMan') {
-              setHueManAvatarUrl(scriptEntry.new_avatar_url);
-            } else if (scriptEntry.target_persona_key === 'tiemCuonLen') {
-              setTiemCuonLenAvatarUrl(scriptEntry.new_avatar_url);
-            }
-            setCurrentScriptIndex(prevIndex => prevIndex + 1);
-          }, scriptEntry.delay || 0);
-        } else {
-          setCurrentScriptIndex(prevIndex => prevIndex + 1);
-        }
-        return;
+    let isRelevant = false;
+    const currentSpeaker = scriptEntry.speaker;
+    const currentPartOfScript = scriptEntry.part_of_persona_script;
+
+    if (currentSpeaker === "Hieu" || currentSpeaker === "System") {
+      // Hieu's and System messages are generally relevant if they belong to the active persona's script part
+      // or are global (part_of_persona_script might be undefined or a general key for these)
+      if (activePersona === 'hueMan' && (currentPartOfScript === "ManMain" || currentPartOfScript === "ManUnlocked20" /* TODO: + unlock check */)) {
+        isRelevant = true;
+      } else if (activePersona === 'tiemCuonLen' && currentPartOfScript === "TiemCuonLenMain") {
+        isRelevant = true;
+      } else if (!currentPartOfScript) { // Global Hieu/System messages
+        isRelevant = true; 
       }
-
-      const scriptPersonaName = scriptEntry.persona;
-      const activePersonaName = activePersona === 'hueMan' ? 'Tran Hue Man' : 'Tiem Cuon Len';
-      const currentSpeakerNickname = scriptEntry.persona === 'Tran Hue Man' ? hueManNickname : tiemCuonLenNickname;
-      const currentSpeakerAvatarUrl = scriptEntry.persona === 'Tran Hue Man' ? hueManAvatarUrl : tiemCuonLenAvatarUrl;
-
-      if (scriptPersonaName === activePersonaName) {
-        setIsPersonaTyping(true);
-        setWaitingForUserInput(false);
-
-        setTimeout(() => {
-          const personaMessage = {
-            id: scriptEntry.id || Date.now().toString(),
-            text: scriptEntry.text,
-            sender: 'persona',
-            persona: scriptEntry.persona,
-            nickname: currentSpeakerNickname,
-            avatarUrl: currentSpeakerAvatarUrl,
-            timestamp: new Date(),
-          };
-          addMessageToChat(personaMessage);
-          setIsPersonaTyping(false);
-          setCurrentScriptIndex(prevIndex => prevIndex + 1);
-
-          if (scriptEntry.expectsUserInputAfter) {
-            setWaitingForUserInput(true);
-          } 
-        }, scriptEntry.delay || 500);
+    } else if (currentSpeaker === "Man" && activePersona === "hueMan") {
+      if (currentPartOfScript === "ManMain" /* || TODO: add ManUnlocked20 logic */) {
+        isRelevant = true;
+      }
+    } else if (currentSpeaker === "TiemCuonLen" && activePersona === "tiemCuonLen") {
+      if (currentPartOfScript === "TiemCuonLenMain") {
+        isRelevant = true;
       }
     }
-  }, [currentScriptIndex, addMessageToChat, activePersona]);
+
+    if (!isRelevant) {
+      setCurrentScriptIndex(prevIndex => prevIndex + 1); 
+      return; // Let useEffect trigger the next call
+    }
+
+    // Handle Actions first
+    if (scriptEntry.action_type) {
+      setIsPersonaTyping(false); // Actions usually don't involve persona typing
+      let actionProcessed = false;
+
+      if (scriptEntry.action_type === 'change_nickname' && scriptEntry.action_payload) {
+        actionProcessed = true;
+        setTimeout(() => {
+          const { target_persona_key, new_nickname } = scriptEntry.action_payload;
+          if (target_persona_key === 'hueMan') setHueManNickname(new_nickname);
+          else if (target_persona_key === 'tiemCuonLen') setTiemCuonLenNickname(new_nickname);
+          
+          if (scriptEntry.speaker === "System" && scriptEntry.text) {
+            addMessageToChat({
+              id: scriptEntry.id || Date.now().toString() + "_action_text",
+              text: scriptEntry.text,
+              sender: 'system',
+              persona: 'System', 
+              nickname: 'System',
+              timestamp: new Date(),
+              image_url: scriptEntry.image_url || null,
+              video_url: scriptEntry.video_url || null,
+            });
+          }
+          setCurrentScriptIndex(prevIndex => prevIndex + 1);
+          if (scriptEntry.expectsUserInputAfter) setWaitingForUserInput(true);
+        }, scriptEntry.delay_after || 0);
+      } else if (scriptEntry.action_type === 'change_avatar' && scriptEntry.action_payload) {
+        actionProcessed = true;
+        setTimeout(() => {
+          const { target_persona_key, new_avatar_url } = scriptEntry.action_payload;
+          if (target_persona_key === 'hueMan') setHueManAvatarUrl(new_avatar_url);
+          else if (target_persona_key === 'tiemCuonLen') setTiemCuonLenAvatarUrl(new_avatar_url);
+
+          if (scriptEntry.speaker === "System" && scriptEntry.text) {
+             addMessageToChat({
+              id: scriptEntry.id || Date.now().toString() + "_action_text",
+              text: scriptEntry.text,
+              sender: 'system',
+              persona: 'System',
+              nickname: 'System',
+              timestamp: new Date(),
+              image_url: scriptEntry.image_url || new_avatar_url, 
+              video_url: scriptEntry.video_url || null,
+            });
+          }
+          setCurrentScriptIndex(prevIndex => prevIndex + 1);
+          if (scriptEntry.expectsUserInputAfter) setWaitingForUserInput(true);
+        }, scriptEntry.delay_after || 0);
+      }
+      // For other actions like time_skip, shared_post, if speaker is System, they will be handled by normal message flow below.
+      if(actionProcessed) return;
+    }
+    
+    const delay = scriptEntry.delay_after || (scriptEntry.speaker === "Hieu" ? 100 : 800);
+    let newMessage = {
+      id: scriptEntry.id || Date.now().toString(),
+      text: scriptEntry.text || "", // Ensure text is not undefined
+      timestamp: new Date(),
+      image_url: scriptEntry.image_url || null,
+      video_url: scriptEntry.video_url || null,
+      // Properties for ChatMessage.js:
+      sender: 'system', // default
+      persona: 'System', // default
+      nickname: 'System', // default
+      avatarUrl: null, // default
+    };
+
+    if (scriptEntry.speaker === "Hieu") {
+      newMessage = { ...newMessage, sender: 'user', persona: 'Duong Trung Hieu', nickname: 'Duong Trung Hieu', avatarUrl: userAvatarUrl };
+    } else if (scriptEntry.speaker === "Man") {
+      newMessage = { ...newMessage, sender: 'persona', persona: 'Tran Hue Man', nickname: hueManNickname, avatarUrl: hueManAvatarUrl };
+      if(!scriptEntry.image_url && !scriptEntry.video_url && scriptEntry.text) setIsPersonaTyping(true);
+    } else if (scriptEntry.speaker === "TiemCuonLen") {
+      newMessage = { ...newMessage, sender: 'persona', persona: 'Tiem Cuon Len', nickname: tiemCuonLenNickname, avatarUrl: tiemCuonLenAvatarUrl };
+      if(!scriptEntry.image_url && !scriptEntry.video_url && scriptEntry.text) setIsPersonaTyping(true);
+    } else if (scriptEntry.speaker === "System") {
+      // Defaults are already set for system message
+      if (scriptEntry.text === null || typeof scriptEntry.text === 'undefined') newMessage.text = ""; // System message might only be an action
+    }
+
+    // Only add message if it has content (text, image, or video)
+    const hasContent = newMessage.text || newMessage.image_url || newMessage.video_url;
+
+    setTimeout(() => {
+      if(hasContent) addMessageToChat(newMessage);
+      
+      if (scriptEntry.speaker === "Man" || scriptEntry.speaker === "TiemCuonLen") {
+        if(!scriptEntry.image_url && !scriptEntry.video_url && scriptEntry.text) setIsPersonaTyping(false);
+      }
+      
+      setCurrentScriptIndex(prevIndex => prevIndex + 1);
+      
+      if (scriptEntry.expectsUserInputAfter) {
+        setWaitingForUserInput(true);
+      } else {
+        // No specific call to processNextScriptMessage here, useEffect will handle it if conditions met
+      }
+    }, delay);
+
+  }, [currentScriptIndex, addMessageToChat, activePersona, hueManNickname, tiemCuonLenNickname, hueManAvatarUrl, tiemCuonLenAvatarUrl, userAvatarUrl]);
 
   useEffect(() => {
     if (!waitingForUserInput && currentScriptIndex < dialogueScript.length) {
-      const scriptEntry = dialogueScript[currentScriptIndex];
-      
-      if (scriptEntry.type === 'action') {
-        processNextScriptMessage();
-      } else if (scriptEntry.persona === (activePersona === 'hueMan' ? hueManNickname : tiemCuonLenNickname)) {
-        const activeBasePersonaName = activePersona === 'hueMan' ? 'Tran Hue Man' : 'Tiem Cuon Len';
-        if (scriptEntry.persona === activeBasePersonaName) {
+      const timeoutId = setTimeout(() => {
           processNextScriptMessage();
-        }
-      }
+      }, 100); // Small delay to allow state updates from previous step to settle if needed
+      return () => clearTimeout(timeoutId);
     }
-  }, [currentScriptIndex, waitingForUserInput, processNextScriptMessage, activePersona, hueManNickname, tiemCuonLenNickname]);
+  }, [currentScriptIndex, waitingForUserInput, processNextScriptMessage]);
   
   useEffect(() => {
-    const activeBasePersonaName = activePersona === 'hueMan' ? 'Tran Hue Man' : 'Tiem Cuon Len';
-    const firstEntryIndexForPersona = dialogueScript.findIndex(
-        script => (script.persona === activeBasePersonaName) || 
-                  (script.type === 'action' && script.target_persona_key === activePersona) ||
-                  (script.type === 'action' && !script.target_persona_key)
+    let startIndex = 0;
+    const targetSpeaker = activePersona === 'hueMan' ? "Man" : "TiemCuonLen";
+    const targetScriptPart = activePersona === 'hueMan' ? "ManMain" : "TiemCuonLenMain";
+    startIndex = dialogueScript.findIndex(entry => 
+      (entry.speaker === targetSpeaker && entry.part_of_persona_script === targetScriptPart) || 
+      (entry.speaker === "Hieu" || entry.speaker === "System")
     );
-    if (firstEntryIndexForPersona !== -1) {
-        setCurrentScriptIndex(firstEntryIndexForPersona);
-    } else {
-        setCurrentScriptIndex(0);
+
+    if (startIndex === -1) {
+        let firstRelevantGlobal = -1;
+        let firstRelevantPersona = -1;
+        for(let i=0; i < dialogueScript.length; i++){
+            const entry = dialogueScript[i];
+            if(entry.speaker === "Hieu" || entry.speaker === "System"){
+                if(firstRelevantGlobal === -1) firstRelevantGlobal = i;
+            }
+            if(entry.speaker === targetSpeaker && entry.part_of_persona_script === targetScriptPart){
+                if(firstRelevantPersona === -1) firstRelevantPersona = i;
+                break;
+            }
+        }
+        if (firstRelevantPersona !== -1) startIndex = firstRelevantPersona;
+        else if (firstRelevantGlobal !== -1) startIndex = firstRelevantGlobal;
+        else startIndex = 0;
     }
-    setMessages([]);
+
+    setCurrentScriptIndex(startIndex);
+    setMessages([]); 
     setWaitingForUserInput(false);
+    setIsPersonaTyping(false); 
   }, [activePersona]);
 
   const togglePersona = () => {
     setActivePersona(prevPersona => prevPersona === 'hueMan' ? 'tiemCuonLen' : 'hueMan');
   };
 
-  const handleSendMessage = () => {
-    if (inputValue.trim() === '') return;
-    const newMessage = {
-      id: Date.now().toString(),
-      text: inputValue.trim(),
-      sender: 'user',
-      persona: 'Duong Trung Hieu',
-      timestamp: new Date(),
-    };
-    addMessageToChat(newMessage);
-    setInputValue('');
-
-    let lastPersonaMsgId = null;
-    for (let i = messages.length - 1; i >= 0; i--) {
-      if (messages[i].sender === 'persona') {
-        lastPersonaMsgId = messages[i].id;
-        break;
-      }
-    }
-    if (lastPersonaMsgId) {
-      setSeenMarkerMessageId(lastPersonaMsgId);
-    }
-
+  const handleContinueScript = () => {
     if (waitingForUserInput) {
       setWaitingForUserInput(false);
-    }
-  };
-
-  const handleInputChange = (event) => {
-    setInputValue(event.target.value);
-  };
-
-  const handleKeyPress = (event) => {
-    if (event.key === 'Enter' && !event.shiftKey) {
-      event.preventDefault();
-      handleSendMessage();
+    } else if (currentScriptIndex < dialogueScript.length) {
+        // If not waiting, but script not done, force next step (e.g. if stuck or for Hieu's lines)
+        processNextScriptMessage(); 
     }
   };
 
@@ -170,10 +228,10 @@ function App() {
       <Container maxWidth="sm" sx={{ pt: 2, display: 'flex', flexDirection: 'column', height: '100vh' }}>
         <Box sx={{ mb: 2, flexShrink: 0 }}>
           <Typography variant="h5" component="h1" gutterBottom>
-            Chat with {currentNickname}
+            Chat with {currentTargetNickname}
           </Typography>
           <Button variant="outlined" onClick={togglePersona} sx={{ mb: 1 }}>
-            Switch to {otherNickname}'s View
+            Switch to {otherTargetNickname}
           </Button>
         </Box>
         <Paper elevation={3} sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
@@ -188,7 +246,7 @@ function App() {
           >
             {messages.length === 0 && !isPersonaTyping ? (
               <Typography sx={{ textAlign: 'center', color: 'text.secondary' }}>
-                No messages yet. Start a conversation!
+                No messages yet. Click Next/Continue to start.
               </Typography>
             ) : (
               messages.map((msg) => (
@@ -202,7 +260,7 @@ function App() {
             )}
             {isPersonaTyping && (
               <Typography sx={{ textAlign: 'left', color: 'text.secondary', fontStyle: 'italic', p:1, mb:1 }}>
-                {currentNickname} is typing...
+                {currentTargetNickname} is typing...
               </Typography>
             )}
           </Box>
@@ -210,15 +268,13 @@ function App() {
             <TextField
               fullWidth
               variant="outlined"
-              placeholder={waitingForUserInput ? "Reply to continue..." : "Type a message..."}
-              value={inputValue}
-              onChange={handleInputChange}
-              onKeyPress={handleKeyPress}
+              placeholder="Click button to continue script..." 
               sx={{ mr: 1 }}
-              disabled={isPersonaTyping || (dialogueScript[currentScriptIndex] && !dialogueScript[currentScriptIndex].expectsUserInputAfter && currentScriptIndex < dialogueScript.length && !waitingForUserInput)}
+              disabled={true} 
             />
-            <Button variant="contained" onClick={handleSendMessage} disabled={!inputValue.trim() || isPersonaTyping || (dialogueScript[currentScriptIndex] && !dialogueScript[currentScriptIndex].expectsUserInputAfter && currentScriptIndex < dialogueScript.length && !waitingForUserInput)}>
-              Send
+            <Button variant="contained" onClick={handleContinueScript} 
+                    disabled={currentScriptIndex >= dialogueScript.length && !waitingForUserInput}>
+              {currentScriptIndex >= dialogueScript.length ? "End" : (waitingForUserInput ? "Continue" : "Next")}
             </Button>
           </Box>
         </Paper>

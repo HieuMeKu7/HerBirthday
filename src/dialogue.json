@@ -17,14 +17,14 @@
   {
     "id": "s2_h1",
     "speaker": "Hieu",
-    "text": "đăng note Tôi muốn chết quá đi mất",
+    "text": "<em>đăng note</em> Tôi muốn chết quá đi mất",
     "delay_after": 1000,
     "part_of_persona_script": "ManMain"
   },
   {
     "id": "s2_m1",
     "speaker": "Man",
-    "text": "reply note Cãi lộn với Trung Hiếu 2 tiếng đồng hồ và không bao giờ nhắc tới chủ đề này nữa",
+    "text": "<em>reply note</em> Cãi lộn với Trung Hiếu 2 tiếng đồng hồ và không bao giờ nhắc tới chủ đề này nữa",
     "delay_after": 1500,
     "expectsUserInputAfter": true,
     "part_of_persona_script": "ManMain"
@@ -46,7 +46,7 @@
   {
     "id": "s3_m2",
     "speaker": "Man",
-    "text": "chuyển 99K",
+    "text": "<em>chuyển 99K</em>",
     "delay_after": 1000,
     "part_of_persona_script": "ManMain"
   },
@@ -124,7 +124,7 @@
   {
     "id": "s5_tcl1",
     "speaker": "TiemCuonLen",
-    "text": "Tin nhắn tự động Xin chào, cảm ơn bạn đã liên hệ với Tiệm Cuộn Len. Tiệm sẽ cố gắng trả lời tin nhắn của bạn trong thời gian sớm nhất có thể <3.",
+    "text": "<em>Tin nhắn tự động</em> Xin chào, cảm ơn bạn đã liên hệ với Tiệm Cuộn Len. Tiệm sẽ cố gắng trả lời tin nhắn của bạn trong thời gian sớm nhất có thể <3.",
     "delay_after": 1500,
     "expectsUserInputAfter": true,
     "part_of_persona_script": "TiemCuonLenMain"
@@ -132,14 +132,14 @@
   {
     "id": "s5_h2",
     "speaker": "Hieu",
-    "text": "gửi link mẫu",
+    "text": "<em>gửi link mẫu</em>",
     "delay_after": 1000,
     "part_of_persona_script": "TiemCuonLenMain"
   },
   {
     "id": "s5_timeskip1",
     "speaker": "System",
-    "text": "--- 5 tiếng sau ---",
+    "text": "<em>--- 5 tiếng sau ---</em>",
     "action_type": "time_skip",
     "delay_after": 500,
     "part_of_persona_script": "TiemCuonLenMain"
@@ -221,7 +221,7 @@
   {
     "id": "s6_timeskip2",
     "speaker": "System",
-    "text": "--- 6 tiếng sau ---",
+    "text": "<em>--- 6 tiếng sau ---</em>",
     "action_type": "time_skip",
     "delay_after": 500,
     "part_of_persona_script": "TiemCuonLenMain"
@@ -273,7 +273,7 @@
   {
     "id": "s6_h4_yt_image",
     "speaker": "Hieu",
-    "text": "gửi link youtube con ma bằng len",
+    "text": "<em>gửi link youtube con ma bằng len</em>",
     "image_url": "/images/conmadom.jpg",
     "delay_after": 1000,
     "part_of_persona_script": "TiemCuonLenMain"
@@ -310,7 +310,7 @@
   {
     "id": "s6_h7_img1",
     "speaker": "Hieu",
-    "text": "gửi hình con ma 1",
+    "text": "<em>gửi hình con ma 1</em>",
     "image_url": "/images/conma1.jpg",
     "delay_after": 1000,
     "part_of_persona_script": "TiemCuonLenMain"
@@ -318,7 +318,7 @@
   {
     "id": "s6_h8_img2",
     "speaker": "Hieu",
-    "text": "gửi hình con ma 2",
+    "text": "<em>gửi hình con ma 2</em>",
     "image_url": "/images/conma2.jpg",
     "delay_after": 1000,
     "part_of_persona_script": "TiemCuonLenMain"
@@ -363,7 +363,7 @@
   {
     "id": "s6_tcl17_react_action",
     "speaker": "System",
-    "text": "Tiệm cuộn len react ok trên tin nhắn của Hiếu.",
+    "text": "<em>Tiệm cuộn len react ok trên tin nhắn của Hiếu.</em>",
     "delay_after": 700,
     "part_of_persona_script": "TiemCuonLenMain"
   },
@@ -513,7 +513,7 @@
   {
     "id": "s10_m8_react_action",
     "speaker": "System",
-    "text": "Mẫn react trái tim trên tin nhắn của Hiếu.",
+    "text": "<em>Mẫn react trái tim trên tin nhắn của Hiếu.</em>",
     "delay_after": 700,
     "expectsUserInputAfter": true,
     "part_of_persona_script": "ManMain"
@@ -587,7 +587,7 @@
   {
     "id": "s14_m1_action_text",
     "speaker": "Man",
-    "text": "giựt cơ miệng, (tự nhiên thôi)",
+    "text": "<em>giựt cơ miệng</em>, <em>(tự nhiên thôi)</em>",
     "delay_after": 1000,
     "expectsUserInputAfter": true,
     "part_of_persona_script": "ManMain"
@@ -602,7 +602,7 @@
   {
     "id": "s14_m2_action_text",
     "speaker": "Man",
-    "text": "giựt mỏ tiếp Cơ địa, cơ địa mà, ai mà khó chịu với mày",
+    "text": "<em>giựt mỏ tiếp</em> Cơ địa, cơ địa mà, ai mà khó chịu với mày",
     "delay_after": 1500,
     "expectsUserInputAfter": true,
     "part_of_persona_script": "ManMain"
@@ -625,7 +625,7 @@
   {
     "id": "s15_system_context",
     "speaker": "System",
-    "text": "Trong group Sinh Nhật Chị Thảo:",
+    "text": "<em>Trong group Sinh Nhật Chị Thảo:</em>",
     "delay_after": 500,
     "part_of_persona_script": "ManMain"
   },
@@ -639,14 +639,14 @@
   {
     "id": "s15_m3_narrative",
     "speaker": "System",
-    "text": "Mẫn gửi nhiều hình dìm và clip của chị Thảo nhất, quay hình dìm bà Thảo nhiều nhất, set luôn avatar hình dìm.",
+    "text": "<em>Mẫn gửi nhiều hình dìm và clip của chị Thảo nhất, quay hình dìm bà Thảo nhiều nhất, set luôn avatar hình dìm.</em>",
     "delay_after": 1000,
     "part_of_persona_script": "ManMain"
   },
   {
     "id": "s15_action_avatar",
     "speaker": "System",
-    "text": "Mẫn đã đổi hình đại diện của cô ấy.",
+    "text": "<em>Mẫn đã đổi hình đại diện của cô ấy.</em>",
     "action_type": "change_avatar",
     "action_payload": { "target_persona_key": "hueMan", "new_avatar_url": "/images/30092024.jpg" },
     "image_url": "/images/30092024.jpg",
@@ -664,7 +664,7 @@
   {
     "id": "s16_m1_share",
     "speaker": "System",
-    "text": "Mẫn đã share một bài viết:",
+    "text": "<em>Mẫn đã share một bài viết:</em>",
     "image_url": "/images/hinh1.jpg",
     "action_type": "shared_post",
     "delay_after": 1500,
@@ -696,7 +696,7 @@
   {
     "id": "s17_m1_share",
     "speaker": "System",
-    "text": "Mẫn đã share một bài viết:",
+    "text": "<em>Mẫn đã share một bài viết:</em>",
     "image_url": "/images/hinh2.jpg",
     "action_type": "shared_post",
     "delay_after": 1500,
@@ -706,7 +706,7 @@
   {
     "id": "s17_h1_img",
     "speaker": "Hieu",
-    "text": "minh chứng đi 3k bước trong 5 ngày liên tục (1)",
+    "text": "<em>minh chứng đi 3k bước trong 5 ngày liên tục (1)</em>",
     "image_url": "/images/hinh3.jpg",
     "delay_after": 1000,
     "part_of_persona_script": "ManMain"
@@ -714,7 +714,7 @@
   {
     "id": "s17_h2_img",
     "speaker": "Hieu",
-    "text": "minh chứng đi 3k bước trong 5 ngày liên tục (2)",
+    "text": "<em>minh chứng đi 3k bước trong 5 ngày liên tục (2)</em>",
     "image_url": "/images/hinh4.jpg",
     "delay_after": 1000,
     "part_of_persona_script": "ManMain"
@@ -722,7 +722,7 @@
   {
     "id": "s17_m2_react",
     "speaker": "System",
-    "text": "Mẫn thả tim.",
+    "text": "<em>Mẫn thả tim.</em>",
     "delay_after": 700,
     "expectsUserInputAfter": true,
     "part_of_persona_script": "ManMain"
@@ -745,7 +745,7 @@
   {
     "id": "s18_m2_seen_action",
     "speaker": "System",
-    "text": "Mẫn seen và im lặng không rep.",
+    "text": "<em>Mẫn seen và im lặng không rep.</em>",
     "delay_after": 1500,
     "expectsUserInputAfter": true,
     "part_of_persona_script": "ManMain"
