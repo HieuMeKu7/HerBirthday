@@ -1,0 +1,7 @@
+modules = ["nodejs-23"]
+run = "npm install @mui/material @emotion/react @emotion/styled"
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+run = ["sh", "-c", "npm install @mui/material @emotion/react @emotion/styled"]
