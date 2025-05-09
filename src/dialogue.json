@@ -1,0 +1,56 @@
+[
+  {
+    "id": "msg1",
+    "persona": "Tran Hue Man",
+    "text": "Hi Hieu! 😊",
+    "delay": 1000,
+    "expectsUserInputAfter": false
+  },
+  {
+    "id": "msg2",
+    "persona": "Tran Hue Man",
+    "text": "Guess what today is?",
+    "delay": 1500,
+    "expectsUserInputAfter": true
+  },
+  {
+    "id": "msg_man_crossed_example",
+    "persona": "Tran Hue Man",
+    "text": {
+      "preview": "I was wondering...",
+      "crossedOut": "if you remembered my birthday gift?",
+      "final": "if you're having a good day? 😊"
+    },
+    "delay": 2000,
+    "expectsUserInputAfter": true
+  },
+  {
+    "id": "action_change_man_nickname_1",
+    "type": "action",
+    "action_type": "change_nickname",
+    "target_persona_key": "hueMan", 
+    "new_nickname": "Man Bear Pig 🐷",
+    "delay": 700
+  },
+  {
+    "id": "msg_man_after_nickname_change",
+    "persona": "Tran Hue Man",
+    "text": "Hehe, how do you like my new name? 😉",
+    "delay": 1200,
+    "expectsUserInputAfter": true
+  },
+  {
+    "id": "msg3_tiemcuonlen_intro",
+    "persona": "Tiem Cuon Len",
+    "text": "🎉 Surprise! It's your special day, Hue Man! 🎉 From Tiem Cuon Len with love!",
+    "delay": 1000,
+    "expectsUserInputAfter": false
+  },
+  {
+    "id": "msg4_tiemcuonlen_wish",
+    "persona": "Tiem Cuon Len",
+    "text": "Wishing you the happiest of birthdays! 🎂",
+    "delay": 1200,
+    "expectsUserInputAfter": true
+  }
+] 
