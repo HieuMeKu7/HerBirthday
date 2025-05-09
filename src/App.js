@@ -9,6 +9,8 @@ function App() {
   const [activePersona, setActivePersona] = useState('hueMan');
   const [hueManNickname, setHueManNickname] = useState('Tran Hue Man');
   const [tiemCuonLenNickname, setTiemCuonLenNickname] = useState('Tiem Cuon Len');
+  const [hueManAvatarUrl, setHueManAvatarUrl] = useState(null);
+  const [tiemCuonLenAvatarUrl, setTiemCuonLenAvatarUrl] = useState(null);
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [currentScriptIndex, setCurrentScriptIndex] = useState(0);
@@ -40,8 +42,16 @@ function App() {
             } else if (scriptEntry.target_persona_key === 'tiemCuonLen') {
               setTiemCuonLenNickname(scriptEntry.new_nickname);
             }
-            const nextIndex = currentScriptIndex + 1;
-            setCurrentScriptIndex(nextIndex);
+            setCurrentScriptIndex(prevIndex => prevIndex + 1);
+          }, scriptEntry.delay || 0);
+        } else if (scriptEntry.action_type === 'change_avatar') {
+          setTimeout(() => {
+            if (scriptEntry.target_persona_key === 'hueMan') {
+              setHueManAvatarUrl(scriptEntry.new_avatar_url);
+            } else if (scriptEntry.target_persona_key === 'tiemCuonLen') {
+              setTiemCuonLenAvatarUrl(scriptEntry.new_avatar_url);
+            }
+            setCurrentScriptIndex(prevIndex => prevIndex + 1);
           }, scriptEntry.delay || 0);
         } else {
           setCurrentScriptIndex(prevIndex => prevIndex + 1);
@@ -51,6 +61,8 @@ function App() {
 
       const scriptPersonaName = scriptEntry.persona;
       const activePersonaName = activePersona === 'hueMan' ? 'Tran Hue Man' : 'Tiem Cuon Len';
+      const currentSpeakerNickname = scriptEntry.persona === 'Tran Hue Man' ? hueManNickname : tiemCuonLenNickname;
+      const currentSpeakerAvatarUrl = scriptEntry.persona === 'Tran Hue Man' ? hueManAvatarUrl : tiemCuonLenAvatarUrl;
 
       if (scriptPersonaName === activePersonaName) {
         setIsPersonaTyping(true);
@@ -62,6 +74,8 @@ function App() {
             text: scriptEntry.text,
             sender: 'persona',
             persona: scriptEntry.persona,
+            nickname: currentSpeakerNickname,
+            avatarUrl: currentSpeakerAvatarUrl,
             timestamp: new Date(),
           };
           addMessageToChat(personaMessage);

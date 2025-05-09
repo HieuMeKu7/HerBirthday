@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Paper, Typography, Box } from '@mui/material';
+import { Paper, Typography, Box, Avatar } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 const ChatMessage = ({ msg, currentTheme, shouldShowSeenIndicator }) => {
@@ -59,59 +59,82 @@ const ChatMessage = ({ msg, currentTheme, shouldShowSeenIndicator }) => {
     new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) :
     '';
 
+  // Get initials for Avatar from persona nickname if no avatarUrl is present
+  const avatarInitials = !isUser && msg.nickname && !msg.avatarUrl ? msg.nickname.charAt(0).toUpperCase() : '';
+
   return (
-    <Paper 
-      elevation={1} 
+    <Box 
       sx={{
-        p: 1.5,
+        display: 'flex',
+        justifyContent: isUser ? 'flex-end' : 'flex-start',
         mb: 1,
-        maxWidth: '70%',
-        wordBreak: 'break-word',
-        alignSelf: isUser ? 'flex-end' : 'flex-start',
-        bgcolor: bgColor,
-        color: textColor,
-        borderRadius: borderRadiusStyle,
-        display: 'inline-block', // Ensures Paper shrinks to content
-        opacity: msg.id === 'temp-typing' ? 0.7 : 1 // For potential future 'is typing' message objects
       }}
     >
-      {isTranHueMan && hasSpecialText ? (
-        <Typography variant="body1" component="span">
-          {displayText}{' '}
-          {crossedText && (
-            <Typography variant="body1" component="span" sx={{ textDecoration: 'line-through', opacity: 0.7 }}>
-              {crossedText}
+      {!isUser && (
+        <Avatar 
+          src={msg.avatarUrl || undefined} // Use avatarUrl if present, otherwise MUI handles initials if children are provided
+          sx={{ 
+            mr: 1, 
+            bgcolor: !msg.avatarUrl ? (msg.persona === 'Tran Hue Man' ? currentTheme.palette.secondary.main : currentTheme.palette.info.main) : undefined,
+            color: !msg.avatarUrl ? (msg.persona === 'Tran Hue Man' ? currentTheme.palette.secondary.contrastText : currentTheme.palette.info.contrastText) : undefined,
+            width: 36, 
+            height: 36,
+            alignSelf: 'flex-end'
+          }}
+        >
+          {/* Render initials only if src is not provided and initials are available */}
+          {!msg.avatarUrl && avatarInitials ? avatarInitials : null}
+        </Avatar>
+      )}
+      <Paper 
+        elevation={1} 
+        sx={{
+          p: 1.5,
+          maxWidth: '70%',
+          wordBreak: 'break-word',
+          bgcolor: bgColor,
+          color: textColor,
+          borderRadius: borderRadiusStyle,
+          display: 'inline-block',
+          opacity: msg.id === 'temp-typing' ? 0.7 : 1
+        }}
+      >
+        {isTranHueMan && hasSpecialText ? (
+          <Typography variant="body1" component="span">
+            {displayText}{' '}
+            {crossedText && (
+              <Typography variant="body1" component="span" sx={{ textDecoration: 'line-through', opacity: 0.7 }}>
+                {crossedText}
+              </Typography>
+            )}
+            {finalTextPart && (
+               <Typography variant="body1" component="span">
+                  {' '}{finalTextPart}
+               </Typography>
+            )}
+          </Typography>
+        ) : (
+          <Typography variant="body1">{displayText}</Typography>
+        )}
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', mt: 0.5 }}>
+          {formattedTime && (
+            <Typography 
+              variant="caption" 
+              sx={{
+                fontSize: '0.65rem',
+                opacity: 0.7,
+                mr: shouldShowSeenIndicator ? 0.5 : 0
+              }}
+            >
+              {formattedTime}
             </Typography>
           )}
-          {finalTextPart && (
-             <Typography variant="body1" component="span">
-                {' '}{finalTextPart}
-             </Typography>
+          {shouldShowSeenIndicator && (
+            <CheckCircleOutlineIcon sx={{ fontSize: '0.8rem', opacity: 0.7 }} />
           )}
-        </Typography>
-      ) : (
-        <Typography variant="body1">{displayText}</Typography>
-      )}
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', mt: 0.5 }}>
-        {formattedTime && (
-          <Typography 
-            variant="caption" 
-            sx={{
-              fontSize: '0.65rem',
-              opacity: 0.7,
-              mr: shouldShowSeenIndicator ? 0.5 : 0
-            }}
-          >
-            {formattedTime}
-          </Typography>
-        )}
-        {shouldShowSeenIndicator && (
-          <CheckCircleOutlineIcon sx={{ fontSize: '0.8rem', opacity: 0.7 }} />
-        )}
-      </Box>
-      {/* Optional: Display timestamp or sender name for persona messages */}
-      {/* {msg.sender === 'persona' && <Typography variant="caption" sx={{display: 'block', textAlign: isUser ? 'right' : 'left'}}>{msg.persona}</Typography>} */}
-    </Paper>
+        </Box>
+      </Paper>
+    </Box>
   );
 };
 
