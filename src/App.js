@@ -9,8 +9,8 @@ function App() {
   const [activePersona, setActivePersona] = useState('hueMan');
   const [hueManNickname, setHueManNickname] = useState('Tran Hue Man');
   const [tiemCuonLenNickname, setTiemCuonLenNickname] = useState('Tiem Cuon Len');
-  const [hueManAvatarUrl, setHueManAvatarUrl] = useState(null);
-  const [tiemCuonLenAvatarUrl, setTiemCuonLenAvatarUrl] = useState(null);
+  const [hueManAvatarUrl, setHueManAvatarUrl] = useState('/images/HueMan.jpg');
+  const [tiemCuonLenAvatarUrl, setTiemCuonLenAvatarUrl] = useState('/images/shop.jpg');
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [currentScriptIndex, setCurrentScriptIndex] = useState(0);
@@ -117,6 +117,7 @@ function App() {
     } else {
         setCurrentScriptIndex(0);
     }
+    setMessages([]);
     setWaitingForUserInput(false);
   }, [activePersona]);
 
