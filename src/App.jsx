@@ -39,8 +39,7 @@ function App() {
   };
 
   const currentTheme = activePersona === 'hueMan' ? hueManTheme : tiemCuonLenTheme;
-  const currentTargetNickname = activePersona === 'hueMan' ? hueManNickname : tiemCuonLenNickname;
-  const otherTargetNickname = activePersona === 'hueMan' ? tiemCuonLenNickname : hueManNickname;
+  const currentTargetNickname = currentPersonaNickname;
 
   const addMessageToChat = useCallback((message) => {
     setMessages((prevMessages) => {
