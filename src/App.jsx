@@ -24,7 +24,13 @@ function App() {
   const otherTargetNickname = activePersona === 'hueMan' ? tiemCuonLenNickname : hueManNickname;
 
   const addMessageToChat = useCallback((message) => {
-    setMessages((prevMessages) => [...prevMessages, message]);
+    setMessages((prevMessages) => {
+      // Check if message with same ID already exists
+      if (prevMessages.some(m => m.id === message.id)) {
+        return prevMessages;
+      }
+      return [...prevMessages, message];
+    });
     if (message.sender === 'persona') { 
       setSeenMarkerMessageId(null);
     }
@@ -230,7 +236,10 @@ function App() {
               overflowY: 'auto',
               p: 2,
               display: 'flex',
-              flexDirection: 'column-reverse' 
+              flexDirection: 'column-reverse',
+              '& > *': {
+                marginTop: 'auto'
+              }
             }}
           >
             {messages.length === 0 && !isPersonaTyping ? (
