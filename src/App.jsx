@@ -7,9 +7,16 @@ import dialogueScript from './dialogue.json';
 import ChatMessage from './components/ChatMessage';
 
 function App() {
+  const [currentScene, setCurrentScene] = useState(1);
   const [activePersona, setActivePersona] = useState('hueMan');
   const [hueManNickname, setHueManNickname] = useState('Tran Hue Man');
   const [tiemCuonLenNickname, setTiemCuonLenNickname] = useState('Tiem Cuon Len');
+
+  const sceneRanges = {
+    1: { start: 0, end: 15 },    // First scene
+    2: { start: 16, end: 30 },   // Second scene 
+    3: { start: 31, end: dialogueScript.length - 1 } // Third scene
+  };
   const [hueManAvatarUrl, setHueManAvatarUrl] = useState('/images/HueMan.jpg');
   const [tiemCuonLenAvatarUrl, setTiemCuonLenAvatarUrl] = useState('/images/shop.jpg');
   const [userAvatarUrl, setUserAvatarUrl] = useState('/images/Hieu.jpg');
@@ -37,7 +44,7 @@ function App() {
   }, []);
 
   const processNextScriptMessage = useCallback(() => {
-    if (currentScriptIndex >= dialogueScript.length) {
+    if (currentScriptIndex > sceneRanges[currentScene].end) {
       setIsPersonaTyping(false);
       return;
     }
@@ -235,9 +242,44 @@ function App() {
           <Typography variant="h5" component="h1" gutterBottom>
             Chat with {currentTargetNickname}
           </Typography>
-          <Button variant="outlined" onClick={togglePersona} sx={{ mb: 1 }}>
+          <Button variant="outlined" onClick={togglePersona} sx={{ mb: 1, mr: 1 }}>
             Switch to {otherTargetNickname}
           </Button>
+          <Button 
+            variant="outlined" 
+            onClick={() => {
+              setMessages([]);
+              setCurrentScriptIndex(sceneRanges[currentScene].start);
+              setWaitingForUserInput(false);
+              setIsPersonaTyping(false);
+              setSeenMarkerMessageId(null);
+              setHueManNickname('Tran Hue Man');
+              setTiemCuonLenNickname('Tiem Cuon Len');
+            }} 
+            sx={{ mb: 1, mr: 1 }}
+          >
+            Reset Scene
+          </Button>
+          <Box sx={{ display: 'flex', gap: 1 }}>
+            {[1, 2, 3].map((sceneNum) => (
+              <Button
+                key={sceneNum}
+                variant={currentScene === sceneNum ? "contained" : "outlined"}
+                onClick={() => {
+                  setCurrentScene(sceneNum);
+                  setMessages([]);
+                  setCurrentScriptIndex(sceneRanges[sceneNum].start);
+                  setWaitingForUserInput(false);
+                  setIsPersonaTyping(false);
+                  setSeenMarkerMessageId(null);
+                  setHueManNickname('Tran Hue Man');
+                  setTiemCuonLenNickname('Tiem Cuon Len');
+                }}
+              >
+                Scene {sceneNum}
+              </Button>
+            ))}
+          </Box>
         </Box>
         <Paper elevation={3} sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
           <Box
