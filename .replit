@@ -5,3 +5,15 @@ channel = "stable-24_05"
 
 [deployment]
 run = ["sh", "-c", "npm install @mui/material @emotion/react @emotion/styled"]
+
+[workflows]
+runButton = "dev"
+
+[[workflows.workflow]]
+name = "dev"
+author = 42487129
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run dev"
