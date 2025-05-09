@@ -156,10 +156,10 @@ function App() {
     if (scriptEntry.speaker === "Hieu") {
       newMessage = { ...newMessage, sender: 'user', persona: 'Duong Trung Hieu', nickname: 'Duong Trung Hieu', avatarUrl: userAvatarUrl };
     } else if (scriptEntry.speaker === "Man") {
-      newMessage = { ...newMessage, sender: 'persona', persona: 'Tran Hue Man', nickname: hueManNickname, avatarUrl: hueManAvatarUrl };
+      newMessage = { ...newMessage, sender: 'persona', persona: 'Tran Hue Man', nickname: currentPersonaNickname, avatarUrl: currentPersonaAvatar };
       if(!scriptEntry.image_url && !scriptEntry.video_url && scriptEntry.text) setIsPersonaTyping(true);
     } else if (scriptEntry.speaker === "TiemCuonLen") {
-      newMessage = { ...newMessage, sender: 'persona', persona: 'Tiem Cuon Len', nickname: tiemCuonLenNickname, avatarUrl: tiemCuonLenAvatarUrl };
+      newMessage = { ...newMessage, sender: 'persona', persona: 'Tiem Cuon Len', nickname: currentPersonaNickname, avatarUrl: currentPersonaAvatar };
       if(!scriptEntry.image_url && !scriptEntry.video_url && scriptEntry.text) setIsPersonaTyping(true);
     }
 
