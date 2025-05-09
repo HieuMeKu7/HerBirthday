@@ -6,6 +6,7 @@ import dialogueScript from './dialogue.json';
 import ChatMessage from './components/ChatMessage';
 
 function App() {
+  const [currentScene, setCurrentScene] = useState(1);
   const [activePersona, setActivePersona] = useState('hueMan');
   const [hueManNickname, setHueManNickname] = useState('Tran Hue Man');
   const [tiemCuonLenNickname, setTiemCuonLenNickname] = useState('Tiem Cuon Len');
@@ -17,6 +18,27 @@ function App() {
   const [isPersonaTyping, setIsPersonaTyping] = useState(false);
   const [waitingForUserInput, setWaitingForUserInput] = useState(false);
   const [seenMarkerMessageId, setSeenMarkerMessageId] = useState(null);
+
+  // Scene ranges based on script_3.txt
+  const sceneRanges = {
+    1: { start: 0, end: 2 },     // First chat about D3
+    2: { start: 3, end: 5 },     // Chat about death note
+    3: { start: 6, end: 10 },    // Chat about borrowing money
+    4: { start: 11, end: 15 },   // Chat about movie
+    5: { start: 16, end: 25 },   // Chat with shop
+    6: { start: 26, end: 30 },   // Chat about likes
+    7: { start: 31, end: 35 },   // Chat about money repayment
+    8: { start: 36, end: 40 },   // Chat about coming down
+    9: { start: 41, end: 45 },   // Chat about debt
+    10: { start: 46, end: 50 },  // Chat about birthday
+    11: { start: 51, end: 55 },  // Chat about mouth twitch
+    12: { start: 56, end: 65 },  // Chat about Thao's photos
+    13: { start: 66, end: 70 },  // Chat about food price
+    14: { start: 71, end: 75 },  // Chat about walking steps
+    15: { start: 76, end: 80 },  // Hey chat
+    16: { start: 81, end: 85 },  // Chat about running
+    17: { start: 86, end: dialogueScript.length - 1 } // Birthday wishes
+  };
 
   const currentTheme = activePersona === 'hueMan' ? hueManTheme : tiemCuonLenTheme;
   const currentTargetNickname = activePersona === 'hueMan' ? hueManNickname : tiemCuonLenNickname;
@@ -171,59 +193,16 @@ function App() {
     }
   }, [currentScriptIndex, waitingForUserInput, processNextScriptMessage]);
 
-  
-const sceneRanges = {};
-
-  // Initialize scene ranges based on message IDs
   useEffect(() => {
-    let currentScene = 1;
-    let sceneStart = 0;
-
-    dialogueScript.forEach((entry, index) => {
-      if (entry.id && entry.id.startsWith(`s${currentScene + 1}_`)) {
-        sceneRanges[currentScene] = { start: sceneStart, end: index - 1 };
-        sceneStart = index;
-        currentScene++;
-      }
-    });
-
-    // Add the last scene
-    sceneRanges[currentScene] = { start: sceneStart, end: dialogueScript.length - 1 };
-  }, []);
-
-
-  useEffect(() => {
-    let startIndex = 0;
+    let startIndex = sceneRanges[currentScene].start;
     const targetSpeaker = activePersona === 'hueMan' ? "Man" : "TiemCuonLen";
     const targetScriptPart = activePersona === 'hueMan' ? "ManMain" : "TiemCuonLenMain";
-    startIndex = dialogueScript.findIndex(entry => 
-      (entry.speaker === targetSpeaker && entry.part_of_persona_script === targetScriptPart) || 
-      (entry.speaker === "Hieu" || entry.speaker === "System")
-    );
-
-    if (startIndex === -1) {
-        let firstRelevantGlobal = -1;
-        let firstRelevantPersona = -1;
-        for(let i=0; i < dialogueScript.length; i++){
-            const entry = dialogueScript[i];
-            if(entry.speaker === "Hieu" || entry.speaker === "System"){
-                if(firstRelevantGlobal === -1) firstRelevantGlobal = i;
-            }
-            if(entry.speaker === targetSpeaker && entry.part_of_persona_script === targetScriptPart){
-                if(firstRelevantPersona === -1) firstRelevantPersona = i;
-                break;
-            }
-        }
-        if (firstRelevantPersona !== -1) startIndex = firstRelevantPersona;
-        else if (firstRelevantGlobal !== -1) startIndex = firstRelevantGlobal;
-        else startIndex = 0;
-    }
-
+    
     setCurrentScriptIndex(startIndex);
     setMessages([]); 
     setWaitingForUserInput(false);
-    setIsPersonaTyping(false); 
-  }, [activePersona]);
+    setIsPersonaTyping(false);
+  }, [activePersona, currentScene]);
 
   const togglePersona = () => {
     setActivePersona(prevPersona => prevPersona === 'hueMan' ? 'tiemCuonLen' : 'hueMan');
@@ -253,11 +232,32 @@ const sceneRanges = {};
       <Container maxWidth="sm" sx={{ pt: 2, display: 'flex', flexDirection: 'column', height: '100vh' }}>
         <Box sx={{ mb: 2, flexShrink: 0 }}>
           <Typography variant="h5" component="h1" gutterBottom>
-            Chat with {currentTargetNickname}
+            Chat with {currentTargetNickname} - Scene {currentScene}
           </Typography>
-          <Button variant="outlined" onClick={togglePersona} sx={{ mb: 1 }}>
+          <Button variant="outlined" onClick={togglePersona} sx={{ mb: 1, mr: 1 }}>
             Switch to {otherTargetNickname}
           </Button>
+          <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 1 }}>
+            {Object.keys(sceneRanges).map((sceneNum) => (
+              <Button
+                key={sceneNum}
+                variant={currentScene === Number(sceneNum) ? "contained" : "outlined"}
+                size="small"
+                onClick={() => {
+                  setCurrentScene(Number(sceneNum));
+                  setMessages([]);
+                  setCurrentScriptIndex(sceneRanges[sceneNum].start);
+                  setWaitingForUserInput(false);
+                  setIsPersonaTyping(false);
+                  setSeenMarkerMessageId(null);
+                  setHueManNickname('Tran Hue Man');
+                  setTiemCuonLenNickname('Tiem Cuon Len');
+                }}
+              >
+                Scene {sceneNum}
+              </Button>
+            ))}
+          </Box>
         </Box>
         <Paper elevation={3} sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
           <Box
