@@ -6,7 +6,7 @@ Idea:
 Absolutely! Here is your comprehensive, organized, and updated requirements and wishes document for your personalized birthday Messenger chat web gift, including the new "crossed-out sentence" feature for Man's replies.
 🎉 Birthday Chat Web Gift: Full Requirements and Conditions
 1. Project Goal
-Create an interactive, Messenger-style web chat app for a friend’s birthday, where users can "message" her two personas, experiencing fully personalized, playful, and humorous group interactions with inside jokes and signature behaviors.
+Create an interactive, Messenger-style web chat app for a friend's birthday, where users can "message" her two personas, experiencing fully personalized, playful, and humorous group interactions with inside jokes and signature behaviors.
 2. Core Experience
 Personas to Chat With
 Tran Hue Man (her personal self)
@@ -15,33 +15,13 @@ Tran Hue Man (her personal self)
 Tiem Cuon Len (her shop persona)
 
 
-Playable Characters
-Users sign in as one of 6 close friends:
-
-
-Ho Phuong Dai
-
-
-Dau Quang Sang
-
-
-Phan The Vinh
-
-
-Duong Trung Hieu
-
-
-Truong Thi Thu Thao
-
-
-Nguyen Thanh Dong
-
-
-Only one can be “signed in” and chatting at a time, but users can sign out and switch to another to see different stories.
+Playable Character
+The user signs in as Duong Trung Hieu.
+The experience is from the perspective of Duong Trung Hieu interacting with Man and her shop persona.
 
 
 Dialogue is 100% personalized
-Each friend has custom-written chat scripts for both Man and Shop personas (unique jokes, memories, behaviors).
+The chat scripts for both Man and Shop personas are custom-written from the perspective of Duong Trung Hieu (unique jokes, memories, behaviors).
 
 
 Dialogue is pre-scripted as choices (no open typing).
@@ -77,7 +57,7 @@ No free typing: Users select from preset message options.
 
 4. Special Interactive Features
 A. Nickname Changes
-Man (or Shop) can instruct users to change their nickname (e.g., “Change your nickname to 60”).
+Man (or Shop) can instruct users to change their nickname (e.g., "Change your nickname to 60").
 
 
 The chat UI updates to show their new nickname.
@@ -90,7 +70,7 @@ B. Time System, Seen Status, and Delays
 After user messages, system displays "Hue Man seen".
 
 
-Man’s reply can be delayed-UI shows typing indicator.
+Man's reply can be delayed-UI shows typing indicator.
 
 
 Big time jumps in chat are displayed as system messages (e.g., "5 hours later").
@@ -102,7 +82,7 @@ Each message/action has a timestamp to track "chat time."
 You can customize delays (e.g., reply appears 5 seconds later, timestamp shows hours have passed).
 
 
-C. Crossed-Out Normal Replies for Man’s Realism
+C. Crossed-Out Normal Replies for Man's Realism
 Man's replies can have a "normal" response shown crossed out (strikethrough), followed by her real, characteristic reply.
 
 
@@ -115,7 +95,7 @@ Man: ~~What's wrong? Wait for me, I'll let you borrow.~~ Again? Ok.
 
 
 5. Dialogue Structure and Data Organization
-Scripts/ folder with one subfolder for each friend, each containing:
+Scripts/ folder with one subfolder for Duong Trung Hieu, containing:
 
 
 Hue Man.json (dialogue for personal Man)
@@ -127,10 +107,11 @@ shop.json (dialogue for shop persona)
 Each JSON stores a script tree:
 
 
-Message text, response options, optional crossed and actual for Man’s replies, actions (e.g., nickname change, time jumps).
+Message text, response options, optional crossed and actual for Man's replies, actions (e.g., nickname change, time jumps).
 
 
 Example:
+
 
  json
 {
@@ -144,10 +125,10 @@ Images (avatars, products, etc.) in public/images/avatars/ and public/images/pro
 
 
 6. Save Progress (Persistence)
-Chat progress, nickname, and state must be saved in browser localStorage so that if a user reloads, they see the same chat and nickname.
+Chat progress, nickname, and state must be saved in browser localStorage so that if the user reloads, they see the same chat and nickname.
 
 
-Each character’s state is separate.
+The character's state is saved.
 
 
 Optional future: Save to a cloud backend (e.g. Firebase) for cross-device play.
@@ -166,7 +147,7 @@ Easy web sharing:
 Deploy on Vercel or Netlify.
 
 
-Share a single link; friends just open and play-no install, no downloads required.
+Share a single link; the friend just opens and plays-no install, no downloads required.
 
 
 Code and assets managed with GitHub for backup and collaboration.
@@ -176,10 +157,9 @@ Sample Project Tree
 text
 birthday-chat-gift/
   Scripts/
-    Ho Phuong Dai/
-      Hue Man.json
+    DuongTrungHieu/
+      HueMan.json
       shop.json
-    ...etc.
   public/
     images/
       avatars/
@@ -192,10 +172,10 @@ birthday-chat-gift/
   package.json
 
 8. Constraints & Wishes
-All content private and lightweight; made for a small group (~6–8 people).
+All content private and lightweight; designed for a personal interaction.
 
 
-Maximum personalization: Each friend gets their own dialogue, inside jokes, and events.
+Maximum personalization: The dialogue, inside jokes, and events are tailored for Duong Trung Hieu.
 
 
 Messenger-style fun: Nickname changes, time jumps, seen status, crossed-out replies, etc.
@@ -224,7 +204,7 @@ Responsive/mobile-friendly UI.
 
 
 Summary Checklist
-Fully personalized, per-friend chat scripts for each persona.
+Fully personalized chat scripts for Duong Trung Hieu with each persona.
 
 
 Messenger-style UI, with avatars and system messages.
@@ -242,9 +222,9 @@ No backend required for v1.
 Deployed for easy, no-setup web access.
 
 
-Code organized clearly with folders for each friend’s dialogue.
+Code organized clearly with a folder for Duong Trung Hieu's dialogue.
 
 
-Simple and fun to play for anyone in your group.
+Simple and fun to play.
 
 
