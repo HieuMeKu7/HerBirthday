@@ -1,56 +1,814 @@
 [
   {
-    "id": "msg1",
-    "persona": "Tran Hue Man",
-    "text": "Hi Hieu! 😊",
-    "delay": 1000,
-    "expectsUserInputAfter": false
+    "id": "s1_h1",
+    "speaker": "Hieu",
+    "text": "Mẫn à có muốn xuống D3 ngồi chơi không?",
+    "delay_after": 1000,
+    "part_of_persona_script": "ManMain"
   },
   {
-    "id": "msg2",
-    "persona": "Tran Hue Man",
-    "text": "Guess what today is?",
-    "delay": 1500,
-    "expectsUserInputAfter": true
+    "id": "s1_m1",
+    "speaker": "Man",
+    "text": "Ko",
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
   },
   {
-    "id": "msg_man_crossed_example",
-    "persona": "Tran Hue Man",
-    "text": {
-      "preview": "I was wondering...",
-      "crossedOut": "if you remembered my birthday gift?",
-      "final": "if you're having a good day? 😊"
-    },
-    "delay": 2000,
-    "expectsUserInputAfter": true
+    "id": "s2_h1",
+    "speaker": "Hieu",
+    "text": "đăng note Tôi muốn chết quá đi mất",
+    "delay_after": 1000,
+    "part_of_persona_script": "ManMain"
   },
   {
-    "id": "action_change_man_nickname_1",
-    "type": "action",
+    "id": "s2_m1",
+    "speaker": "Man",
+    "text": "reply note Cãi lộn với Trung Hiếu 2 tiếng đồng hồ và không bao giờ nhắc tới chủ đề này nữa",
+    "delay_after": 1500,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s3_h1",
+    "speaker": "Hieu",
+    "text": "Mẫnnnnnnnn, cho t mượn 100k được không, đói bụng quáaaa",
+    "delay_after": 1000,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s3_m1",
+    "speaker": "Man",
+    "text": "OK",
+    "delay_after": 500,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s3_m2",
+    "speaker": "Man",
+    "text": "chuyển 99K",
+    "delay_after": 1000,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s3_m3",
+    "speaker": "Man",
+    "text": "Rồi đó.",
+    "delay_after": 500,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s3_h2",
+    "speaker": "Hieu",
+    "text": "Jz bà nọi, sao có 99k z",
+    "delay_after": 1000,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s3_m4",
+    "speaker": "Man",
+    "text": "T góp hết tài sản của t cho m r đó",
+    "delay_after": 1500,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s3_action_nick",
+    "speaker": "System",
+    "text": "Hiếu đã đổi biệt danh của Mẫn thành nữ thần Momo.",
     "action_type": "change_nickname",
-    "target_persona_key": "hueMan", 
-    "new_nickname": "Man Bear Pig 🐷",
-    "delay": 700
+    "action_payload": { "target_persona_key": "hueMan", "new_nickname": "nữ thần Momo" },
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
   },
   {
-    "id": "msg_man_after_nickname_change",
-    "persona": "Tran Hue Man",
-    "text": "Hehe, how do you like my new name? 😉",
-    "delay": 1200,
-    "expectsUserInputAfter": true
+    "id": "s4_m1",
+    "speaker": "Man",
+    "text": "Mai đi coi phim 0?",
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
   },
   {
-    "id": "msg3_tiemcuonlen_intro",
-    "persona": "Tiem Cuon Len",
-    "text": "🎉 Surprise! It's your special day, Hue Man! 🎉 From Tiem Cuon Len with love!",
-    "delay": 1000,
-    "expectsUserInputAfter": false
+    "id": "s4_h1",
+    "speaker": "Hieu",
+    "text": "Hết tiền r :(. Cho ghi nợ nha, hihi",
+    "delay_after": 1000,
+    "part_of_persona_script": "ManMain"
   },
   {
-    "id": "msg4_tiemcuonlen_wish",
-    "persona": "Tiem Cuon Len",
-    "text": "Wishing you the happiest of birthdays! 🎂",
-    "delay": 1200,
-    "expectsUserInputAfter": true
+    "id": "s4_m2",
+    "speaker": "Man",
+    "text": "Ok, z mai 12h30 Thám tử Kiên nha",
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s4_h2",
+    "speaker": "Hieu",
+    "text": "Dạ.",
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s5_h1",
+    "speaker": "Hieu",
+    "text": "Sốp ơi còn mẫu này không ạ?",
+    "delay_after": 1000,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s5_tcl1",
+    "speaker": "TiemCuonLen",
+    "text": "Tin nhắn tự động Xin chào, cảm ơn bạn đã liên hệ với Tiệm Cuộn Len. Tiệm sẽ cố gắng trả lời tin nhắn của bạn trong thời gian sớm nhất có thể <3.",
+    "delay_after": 1500,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s5_h2",
+    "speaker": "Hieu",
+    "text": "gửi link mẫu",
+    "delay_after": 1000,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s5_timeskip1",
+    "speaker": "System",
+    "text": "--- 5 tiếng sau ---",
+    "action_type": "time_skip",
+    "delay_after": 500,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s5_tcl2",
+    "speaker": "TiemCuonLen",
+    "text": "Tiệm đang trong thời gian bảo trì, khi nào tiệm nhận đơn tiệm sẽ liên hệ báo giá và chốt đơn cho bạn nha. Cảm ơn bạn",
+    "delay_after": 2000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_timeskip1",
+    "speaker": "System",
+    "text": "--- 2 tháng sau ---",
+    "action_type": "time_skip",
+    "delay_after": 500,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_tcl1",
+    "speaker": "TiemCuonLen",
+    "text": "Hi bạn",
+    "delay_after": 1000,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_tcl2",
+    "speaker": "TiemCuonLen",
+    "text": "Tiệm bắt đầu nhận đơn nha",
+    "delay_after": 1000,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_tcl3",
+    "speaker": "TiemCuonLen",
+    "text": "Bạn muốn size như nào",
+    "delay_after": 1000,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_tcl4",
+    "speaker": "TiemCuonLen",
+    "text": "Bạn còn nhu cần hong",
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_h1",
+    "speaker": "Hieu",
+    "text": "Đổi con đc k sốp",
+    "delay_after": 1000,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_tcl5",
+    "speaker": "TiemCuonLen",
+    "text": "Đc nha",
+    "delay_after": 1000,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_tcl6",
+    "speaker": "TiemCuonLen",
+    "text": "Lựa lẹ cho sốp",
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_h2",
+    "speaker": "Hieu",
+    "text": "Cho e 15p",
+    "delay_after": 1000,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_timeskip2",
+    "speaker": "System",
+    "text": "--- 6 tiếng sau ---",
+    "action_type": "time_skip",
+    "delay_after": 500,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_tcl7",
+    "speaker": "TiemCuonLen",
+    "text": "Có chốt ch",
+    "delay_after": 1000,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_tcl8",
+    "speaker": "TiemCuonLen",
+    "text": "Shop đang ế nè",
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_h3",
+    "speaker": "Hieu",
+    "text": "Ủa tưởng đang đông đơn",
+    "delay_after": 1000,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_tcl9",
+    "speaker": "TiemCuonLen",
+    "text": "Thì nhận trước tính sau",
+    "delay_after": 1000,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_tcl10",
+    "speaker": "TiemCuonLen",
+    "text": "không thì khỏi xếp lịch",
+    "delay_after": 1000,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_tcl11",
+    "speaker": "TiemCuonLen",
+    "text": "Chờ mùa mưa năm sau:",
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_h4_yt_image",
+    "speaker": "Hieu",
+    "text": "gửi link youtube con ma bằng len",
+    "image_url": "/images/conmadom.jpg",
+    "delay_after": 1000,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_h5",
+    "speaker": "Hieu",
+    "text": "Dạ đây ạ",
+    "delay_after": 1000,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_tcl12",
+    "speaker": "TiemCuonLen",
+    "text": "Gửi hình",
+    "delay_after": 1000,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_tcl13",
+    "speaker": "TiemCuonLen",
+    "text": "Mắc công sóp phải coi vi đê ô",
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_h6",
+    "speaker": "Hieu",
+    "text": "Cái này cũng đc sốp ạ",
+    "delay_after": 1000,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_h7_img1",
+    "speaker": "Hieu",
+    "text": "gửi hình con ma 1",
+    "image_url": "/images/conma1.jpg",
+    "delay_after": 1000,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_h8_img2",
+    "speaker": "Hieu",
+    "text": "gửi hình con ma 2",
+    "image_url": "/images/conma2.jpg",
+    "delay_after": 1000,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_tcl14",
+    "speaker": "TiemCuonLen",
+    "text": "Nào xong thì mặc sốp coi",
+    "delay_after": 1000,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_tcl15",
+    "speaker": "TiemCuonLen",
+    "text": "Con ma thì đc, quả bí hơi nhỏ",
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_h9",
+    "speaker": "Hieu",
+    "text": "Dạ sao cũng được, hoi lỡ r có bí có mũ luôn nha, móc k đc thì bỏ qua",
+    "delay_after": 1000,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_tcl16",
+    "speaker": "TiemCuonLen",
+    "text": "Ý là thách thức shop hả",
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_h10_react",
+    "speaker": "Hieu",
+    "text": "Dạ k ạ…",
+    "delay_after": 1000,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_tcl17_react_action",
+    "speaker": "System",
+    "text": "Tiệm cuộn len react ok trên tin nhắn của Hiếu.",
+    "delay_after": 700,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s6_h11_narrative",
+    "speaker": "Hieu",
+    "text": "1 năm sau, chị ấy vẫn không giao con ma cho tôi, có một tin đồn là chị ấy quỵt đơn luôn, mãn kiếp trả",
+    "delay_after": 2000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "TiemCuonLenMain"
+  },
+  {
+    "id": "s7_m1",
+    "speaker": "Man",
+    "text": "Dô like share cho sốp chưa?",
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s7_h1",
+    "speaker": "Hieu",
+    "text": "Dạ",
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s8_m1",
+    "speaker": "Man",
+    "text": "Xuống D3 chơi không?",
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s8_h1",
+    "speaker": "Hieu",
+    "text": "Chiện lạ z, chờ e, ok?",
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s9_m1",
+    "speaker": "Man",
+    "text": "Mai m đi xe với ai?",
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s9_h1",
+    "speaker": "Hieu",
+    "text": "Dạ anh",
+    "delay_after": 1000,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s9_m2",
+    "speaker": "Man",
+    "text": "6h20",
+    "delay_after": 1000,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s9_timeskip1",
+    "speaker": "System",
+    "text": "--- 8 tiếng sau ---",
+    "action_type": "time_skip",
+    "delay_after": 500,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s9_m3",
+    "speaker": "Man",
+    "text": "trễ xíu, nào xún t nói",
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s9_h2",
+    "speaker": "Hieu",
+    "text": "Dạ",
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s10_m1",
+    "speaker": "Man",
+    "text": "90",
+    "delay_after": 700,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s10_m2",
+    "speaker": "Man",
+    "text": "67",
+    "delay_after": 700,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s10_m3",
+    "speaker": "Man",
+    "text": "57",
+    "delay_after": 700,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s10_m4",
+    "speaker": "Man",
+    "text": "40",
+    "delay_after": 700,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s10_m5",
+    "speaker": "Man",
+    "text": "30",
+    "delay_after": 700,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s10_m6",
+    "speaker": "Man",
+    "text": "16",
+    "delay_after": 700,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s10_m7",
+    "speaker": "Man",
+    "text": "10",
+    "delay_after": 700,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s10_h1_react",
+    "speaker": "Hieu",
+    "text": "Ròi hết nợ nha",
+    "delay_after": 1000,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s10_m8_react_action",
+    "speaker": "System",
+    "text": "Mẫn react trái tim trên tin nhắn của Hiếu.",
+    "delay_after": 700,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s11_h1",
+    "speaker": "Hieu",
+    "text": "A xuống chưa",
+    "delay_after": 1000,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s11_m1",
+    "speaker": "Man",
+    "text": "Đợi xíu, ank đang bay xuống nè",
+    "delay_after": 1500,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s12_h1",
+    "speaker": "Hieu",
+    "text": "45",
+    "delay_after": 700,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s12_h2",
+    "speaker": "Hieu",
+    "text": "35",
+    "delay_after": 700,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s12_h3",
+    "speaker": "Hieu",
+    "text": "10",
+    "delay_after": 700,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s12_h4",
+    "speaker": "Hieu",
+    "text": "Rồi hết nợ nha",
+    "delay_after": 1000,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s12_m1_seen_action",
+    "speaker": "System",
+    "text": "Mẫn chỉ seen.",
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s13_h1",
+    "speaker": "Hieu",
+    "text": "Chúc mừng sinh nhật nha…\"một tràng dài 5 dòng\"",
+    "delay_after": 1000,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s13_m1",
+    "speaker": "Man",
+    "text": "Chồ ôi cảm ơn em yêu nhiều nhaaaaa",
+    "delay_after": 1500,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s14_m1_action_text",
+    "speaker": "Man",
+    "text": "giựt cơ miệng, (tự nhiên thôi)",
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s14_h1",
+    "speaker": "Hieu",
+    "text": "Sao mỏ m giựt quài z, khó chịu hà, đó nó giựt nữa kìa",
+    "delay_after": 1000,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s14_m2_action_text",
+    "speaker": "Man",
+    "text": "giựt mỏ tiếp Cơ địa, cơ địa mà, ai mà khó chịu với mày",
+    "delay_after": 1500,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s15_timeskip",
+    "speaker": "System",
+    "text": "--- 30/9/2024 ---",
+    "action_type": "time_skip",
+    "delay_after": 500,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s15_m1",
+    "speaker": "Man",
+    "text": "Trời ơi em có bao giờ gửi hình dìm chị bao giờ!!!(Đang nói chị Thảo)",
+    "delay_after": 1000,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s15_system_context",
+    "speaker": "System",
+    "text": "Trong group Sinh Nhật Chị Thảo:",
+    "delay_after": 500,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s15_m2",
+    "speaker": "Man",
+    "text": "Nè",
+    "delay_after": 500,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s15_m3_narrative",
+    "speaker": "System",
+    "text": "Mẫn gửi nhiều hình dìm và clip của chị Thảo nhất, quay hình dìm bà Thảo nhiều nhất, set luôn avatar hình dìm.",
+    "delay_after": 1000,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s15_action_avatar",
+    "speaker": "System",
+    "text": "Mẫn đã đổi hình đại diện của cô ấy.",
+    "action_type": "change_avatar",
+    "action_payload": { "target_persona_key": "hueMan", "new_avatar_url": "/images/30092024.jpg" },
+    "image_url": "/images/30092024.jpg",
+    "delay_after": 1000,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s15_m4",
+    "speaker": "Man",
+    "text": "hihi",
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s16_m1_share",
+    "speaker": "System",
+    "text": "Mẫn đã share một bài viết:",
+    "image_url": "/images/hinh1.jpg",
+    "action_type": "shared_post",
+    "delay_after": 1500,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s16_h1",
+    "speaker": "Hieu",
+    "text": "1p trứng thịt kho+bò xào cá viên chiên cơm thêm canh thêm 30k",
+    "delay_after": 1000,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s16_m2",
+    "speaker": "Man",
+    "text": "T quyết định là khỏi 30k, 25k thôi",
+    "delay_after": 1000,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s16_m3",
+    "speaker": "Man",
+    "text": "Đỡ mệt, lằng nhằng",
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s17_m1_share",
+    "speaker": "System",
+    "text": "Mẫn đã share một bài viết:",
+    "image_url": "/images/hinh2.jpg",
+    "action_type": "shared_post",
+    "delay_after": 1500,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s17_h1_img",
+    "speaker": "Hieu",
+    "text": "minh chứng đi 3k bước trong 5 ngày liên tục (1)",
+    "image_url": "/images/hinh3.jpg",
+    "delay_after": 1000,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s17_h2_img",
+    "speaker": "Hieu",
+    "text": "minh chứng đi 3k bước trong 5 ngày liên tục (2)",
+    "image_url": "/images/hinh4.jpg",
+    "delay_after": 1000,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s17_m2_react",
+    "speaker": "System",
+    "text": "Mẫn thả tim.",
+    "delay_after": 700,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s18_m1",
+    "speaker": "Man",
+    "text": "Ê",
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s18_h1",
+    "speaker": "Hieu",
+    "text": "Ơi",
+    "delay_after": 1000,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s18_m2_seen_action",
+    "speaker": "System",
+    "text": "Mẫn seen và im lặng không rep.",
+    "delay_after": 1500,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s19_m1",
+    "speaker": "Man",
+    "text": "Mới đầu vô tưởng mày trai thẳng",
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s19_h1",
+    "speaker": "Hieu",
+    "text": "Bộ giống lắm hả",
+    "delay_after": 1000,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s19_m2",
+    "speaker": "Man",
+    "text": "Ờ, cho đến khi thấy cái tướng chạy của mày",
+    "delay_after": 1500,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManMain"
+  },
+  {
+    "id": "s20_h1",
+    "speaker": "Hieu",
+    "text": "20 à, phải rồi, năm nay Mẫn 20 tuổi nhỉ, cảm ơn mày vì đã đồng hành cũng tao 1/10 cuộc đời của mày, mong mày giàu",
+    "delay_after": 2000,
+    "part_of_persona_script": "ManUnlocked20"
+  },
+  {
+    "id": "s20_h2",
+    "speaker": "Hieu",
+    "text": "Chúc mày luôn được như này:",
+    "delay_after": 1000,
+    "part_of_persona_script": "ManUnlocked20"
+  },
+  {
+    "id": "s20_v1",
+    "speaker": "Hieu",
+    "text": " ",
+    "video_url": "https://www.youtube.com/watch?v=WFwna8ZH2DI",
+    "delay_after": 1000,
+    "part_of_persona_script": "ManUnlocked20"
+  },
+  {
+    "id": "s20_h3",
+    "speaker": "Hieu",
+    "text": "Và: CHÚC MỪNG SINH NHẬT NHA:",
+    "delay_after": 1000,
+    "part_of_persona_script": "ManUnlocked20"
+  },
+  {
+    "id": "s20_v2",
+    "speaker": "Hieu",
+    "text": " ",
+    "video_url": "https://www.youtube.com/watch?v=np0hCOhh8WU",
+    "delay_after": 1000,
+    "expectsUserInputAfter": true,
+    "part_of_persona_script": "ManUnlocked20"
   }
 ] 
