@@ -8,10 +8,8 @@ import ChatMessage from './components/ChatMessage';
 function App() {
   const [currentScene, setCurrentScene] = useState(1);
   const [activePersona, setActivePersona] = useState('hueMan');
-  const [hueManNickname, setHueManNickname] = useState('Tran Hue Man');
-  const [tiemCuonLenNickname, setTiemCuonLenNickname] = useState('Tiem Cuon Len');
-  const [hueManAvatarUrl, setHueManAvatarUrl] = useState('/images/HueMan.jpg');
-  const [tiemCuonLenAvatarUrl, setTiemCuonLenAvatarUrl] = useState('/images/shop.jpg');
+  const [currentPersonaNickname, setCurrentPersonaNickname] = useState('Tran Hue Man');
+  const [currentPersonaAvatar, setCurrentPersonaAvatar] = useState('/images/HueMan.jpg');
   const [userAvatarUrl, setUserAvatarUrl] = useState('/images/Hieu.jpg');
   const [messages, setMessages] = useState([]);
   const [currentScriptIndex, setCurrentScriptIndex] = useState(0);
@@ -194,19 +192,28 @@ function App() {
   }, [currentScriptIndex, waitingForUserInput, processNextScriptMessage]);
 
   useEffect(() => {
-    let startIndex = sceneRanges[currentScene].start;
-    const targetSpeaker = activePersona === 'hueMan' ? "Man" : "TiemCuonLen";
-    const targetScriptPart = activePersona === 'hueMan' ? "ManMain" : "TiemCuonLenMain";
-    
-    setCurrentScriptIndex(startIndex);
-    setMessages([]); 
-    setWaitingForUserInput(false);
-    setIsPersonaTyping(false);
-  }, [activePersona, currentScene]);
+    const detectSceneFromMessage = (messageId) => {
+      if (!messageId) return null;
+      const match = messageId.match(/^s(\d+)_/);
+      return match ? parseInt(match[1]) : null;
+    };
 
-  const togglePersona = () => {
-    setActivePersona(prevPersona => prevPersona === 'hueMan' ? 'tiemCuonLen' : 'hueMan');
-  };
+    const currentMessageId = dialogueScript[currentScriptIndex]?.id;
+    const detectedScene = detectSceneFromMessage(currentMessageId);
+    
+    if (detectedScene && detectedScene !== currentScene) {
+      setCurrentScene(detectedScene);
+      setMessages([]);
+      setWaitingForUserInput(false);
+      setIsPersonaTyping(false);
+      
+      // Update persona based on scene
+      const newPersona = dialogueScript[currentScriptIndex].speaker === "TiemCuonLen" ? "tiemCuonLen" : "hueMan";
+      setActivePersona(newPersona);
+      setCurrentPersonaNickname(newPersona === "hueMan" ? "Tran Hue Man" : "Tiem Cuon Len");
+      setCurrentPersonaAvatar(newPersona === "hueMan" ? "/images/HueMan.jpg" : "/images/shop.jpg");
+    }
+  }, [currentScriptIndex, currentScene]);
 
   const handleContinueScript = () => {
     if (waitingForUserInput) {
@@ -232,32 +239,8 @@ function App() {
       <Container maxWidth="sm" sx={{ pt: 2, display: 'flex', flexDirection: 'column', height: '100vh' }}>
         <Box sx={{ mb: 2, flexShrink: 0 }}>
           <Typography variant="h5" component="h1" gutterBottom>
-            Chat with {currentTargetNickname} - Scene {currentScene}
+            Đang chat với {currentPersonaNickname}
           </Typography>
-          <Button variant="outlined" onClick={togglePersona} sx={{ mb: 1, mr: 1 }}>
-            Switch to {otherTargetNickname}
-          </Button>
-          <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 1 }}>
-            {Object.keys(sceneRanges).map((sceneNum) => (
-              <Button
-                key={sceneNum}
-                variant={currentScene === Number(sceneNum) ? "contained" : "outlined"}
-                size="small"
-                onClick={() => {
-                  setCurrentScene(Number(sceneNum));
-                  setMessages([]);
-                  setCurrentScriptIndex(sceneRanges[sceneNum].start);
-                  setWaitingForUserInput(false);
-                  setIsPersonaTyping(false);
-                  setSeenMarkerMessageId(null);
-                  setHueManNickname('Tran Hue Man');
-                  setTiemCuonLenNickname('Tiem Cuon Len');
-                }}
-              >
-                Scene {sceneNum}
-              </Button>
-            ))}
-          </Box>
         </Box>
         <Paper elevation={3} sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
           <Box
