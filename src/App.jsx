@@ -217,6 +217,16 @@ function App() {
     }
   };
 
+  const messagesEndRef = React.useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView();
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   return (
     <ThemeProvider theme={currentTheme}>
       <CssBaseline />
@@ -236,10 +246,8 @@ function App() {
               overflowY: 'auto',
               p: 2,
               display: 'flex',
-              flexDirection: 'column-reverse',
-              '& > *': {
-                marginTop: 'auto'
-              }
+              flexDirection: 'column',
+              scrollBehavior: 'smooth'
             }}
           >
             {messages.length === 0 && !isPersonaTyping ? (
@@ -261,6 +269,7 @@ function App() {
                 {currentTargetNickname} is typing...
               </Typography>
             )}
+            <div ref={messagesEndRef} />
           </Box>
           <Box sx={{ p: 2, borderTop: '1px solid', borderColor: 'divider', flexShrink: 0, display: 'flex', alignItems: 'center' }}>
             <TextField
